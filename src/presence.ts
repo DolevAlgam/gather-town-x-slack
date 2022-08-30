@@ -17,8 +17,9 @@ export const generatePresenceMessage = (players: GatherPlayer[]) => {
     const writeLine = (value: string) => message.push(value);
 
     // Write the header.
-    writeLine(`:office: Metaverse Office`);
     writeLine(`There are *${players.length}* people in the office.`);
+    newLine();
+    writeLine(`:office: Metaverse Office`);
     newLine();
     newLine();
 
@@ -60,7 +61,6 @@ export const generatePresenceMessage = (players: GatherPlayer[]) => {
         }
     }
     
-    newLine();
     newLine();
     newLine();
     writeLine(" ");

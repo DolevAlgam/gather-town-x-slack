@@ -11,7 +11,15 @@ export const initGather = async () => {
     const game = new Game(SPACE_ID, () => Promise.resolve({ apiKey: API_KEY }));
     // this is the line that actually connects to the server and starts initializing stuff
     await game.connect();
-    console.log(`⚡️ Gather is connected!`);
+    //console.log(`⚡️ Gather is connected!`);
+    game.subscribeToConnection((connected: any) => {
+        if (connected) {
+            console.log(`⚡️ Gather is connected!`);
+        } else {
+            console.log(`Gather is NOT connected!`);
+        }
+    });
+
 
     return game;
 }

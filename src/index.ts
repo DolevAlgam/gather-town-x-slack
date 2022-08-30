@@ -28,7 +28,7 @@ const CHAT_CHANNEL_ID = config.slack.chatChannelId!;
   /**
    * Updates the presence message on Slack.
    */
-  const updateOnlinePresenceMessage = async () => {
+  const updateOnlinePresenceMessage = async (notify: boolean = false) => {
     const generatedMessage = generatePresenceMessage(playersOnline);
 
     try {
@@ -50,6 +50,9 @@ const CHAT_CHANNEL_ID = config.slack.chatChannelId!;
         }
       }
 
+      if (notify) {
+        throw new Error("Forced Notification")
+      }
       // Update the presence message.
       await slackClient.client.chat
               .update({
@@ -94,6 +97,7 @@ const CHAT_CHANNEL_ID = config.slack.chatChannelId!;
    * Gather event handler for player joining.
    */
   gatherClient.subscribeToEvent("playerJoins", async (data, context) => {
+    console.log(data.$case, context.playerId)
     const exists =
       playersOnline.map((p) => p.gatherId).indexOf(context.playerId!) !== -1;
 
@@ -115,7 +119,7 @@ const CHAT_CHANNEL_ID = config.slack.chatChannelId!;
           slackId: member?.slackId!,
         });
 
-        updateOnlinePresenceMessage();
+        updateOnlinePresenceMessage(true);
       }
     }
   });
@@ -253,7 +257,7 @@ const CHAT_CHANNEL_ID = config.slack.chatChannelId!;
     });
 
     console.log(`[${new Date()}]`, "Gather players synced.");
-
+    
     updateOnlinePresenceMessage();
   }, 30000);
 })();

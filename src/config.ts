@@ -3,41 +3,21 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-/**
- * *Astronauts*
- * 
- * The members of Assembless.
- */
 const MEMBERS: Member[] = [
   {
-    name: "Mike",
-    slackId: "U0366MZ8A1H",
-    gatherId: "1kZCHNAWcsZXqG1pZ9OzgFwX7jz2",
+    name: "Dolev",
+    slackId: "U01L163H2G1",
+    gatherId: "iSxP75BV40SGGTfUWB6fqmTfDy02",
   },
   {
-    name: "Rafał",
-    slackId: "U03692K5CSG",
-    gatherId: "CwzQmehbWCfiHpeaHg0bhUY91Mz1",
+    name: "Yadin",
+    slackId: "U01K7PS3DT9",
+    gatherId: "9NIRMgIxhcRr1GTOkoycY3GfgIj1",
   },
   {
-    name: "Bartek",
-    slackId: "U036034UZ62",
-    gatherId: "zAbFaneypZOpmxkeNoF6eCyG6is1",
-  },
-  {
-    name: "Krzysztof",
-    slackId: "U036SB5JYHZ",
-    gatherId: "H4wSnVqIjUYk7EQoY0IDFMEjSXY2",
-  },
-  {
-    name: "Karolina",
-    slackId: "U0360356C3Y",
-    gatherId: "",
-  },
-  {
-    name: "Ekikere-abasi Michael",
-    slackId: "U03N889K134",
-    gatherId: "6n9vDhhOenU90W3ZulnvOaZX3Nf1",
+    name: "Harel",
+    slackId: "U033TSQ1XJR",
+    gatherId: "H2XOFs0pzZRxbYxk6tBWfsIOYKr1",
   }
 ];
 
