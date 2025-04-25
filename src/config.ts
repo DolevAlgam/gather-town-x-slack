@@ -6,18 +6,13 @@ dotenv.config();
 const MEMBERS: Member[] = [
   {
     name: "Dolev",
-    slackId: "U01L163H2G1",
+    slackId: "U08JS603NJW",
     gatherId: "iSxP75BV40SGGTfUWB6fqmTfDy02",
   },
   {
-    name: "Yadin",
-    slackId: "U01K7PS3DT9",
-    gatherId: "9NIRMgIxhcRr1GTOkoycY3GfgIj1",
-  },
-  {
-    name: "Harel",
-    slackId: "U033TSQ1XJR",
-    gatherId: "H2XOFs0pzZRxbYxk6tBWfsIOYKr1",
+    name: "Daniel",
+    slackId: "U08NA2N9ZPG",
+    gatherId: "Y9UPZyUX88YDTlQsAGckF6df8Rm1",
   }
 ];
 

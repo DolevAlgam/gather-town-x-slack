@@ -8,6 +8,19 @@ import { GatherPlayer } from "./types";
 const PRESENCE_CHANNEL_ID = config.slack.presenceChannelId!;
 const CHAT_CHANNEL_ID = config.slack.chatChannelId!;
 
+// Debounce function to prevent rapid updates
+const debounce = (func: Function, wait: number) => {
+    let timeout: NodeJS.Timeout;
+    return function executedFunction(...args: any[]) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
 /**
  * It's here... where it all begins :D
  */
@@ -26,10 +39,22 @@ const CHAT_CHANNEL_ID = config.slack.chatChannelId!;
   let messageId = "";
 
   /**
+   * Last message content to prevent duplicate updates
+   */
+  let lastMessageContent = "";
+
+  /**
    * Updates the presence message on Slack.
    */
-  const updateOnlinePresenceMessage = async (notify: boolean = false) => {
+  const updateOnlinePresenceMessage = debounce(async (notify: boolean = false) => {
     const generatedMessage = generatePresenceMessage(playersOnline);
+
+    // Don't update if the content hasn't changed
+    if (generatedMessage === lastMessageContent && !notify) {
+      return;
+    }
+
+    lastMessageContent = generatedMessage;
 
     try {
       // Try updating the message with new presence.
@@ -91,7 +116,7 @@ const CHAT_CHANNEL_ID = config.slack.chatChannelId!;
       // Save the message ID.
       messageId = newMessage.ts!;
     }
-  };
+  }, 1000); // Debounce for 1 second
 
   /**
    * Gather event handler for player joining.
