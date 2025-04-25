@@ -1,15 +1,18 @@
-# fly.toml file generated for assembless-gather-x-slack on 2022-07-18T21:48:52+02:00
+# fly.toml file generated for gather-town-x-slack
 
-app = "assembless-gather-x-slack"
+app = "gather-town-x-slack"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
 [build]
   builder = "heroku/buildpacks:20"
+  [build.args]
+    NODE_VERSION = "14.17.6"
 
 [env]
-  PORT = "8080"
+  PORT = "3000"
+  NODE_ENV = "production"
 
 [experimental]
   allowed_public_ports = []
@@ -17,7 +20,7 @@ processes = []
 
 [[services]]
   http_checks = []
-  internal_port = 8080
+  internal_port = 3000
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
@@ -36,7 +39,7 @@ processes = []
     port = 443
 
   [[services.tcp_checks]]
-    grace_period = "1s"
+    grace_period = "30s"
     interval = "15s"
     restart_limit = 0
     timeout = "2s"

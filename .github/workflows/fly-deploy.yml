@@ -8,14 +8,36 @@ env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
   GATHER_API_KEY: ${{ secrets.GATHER_API_KEY }}
   GATHER_SPACE_ID: ${{ secrets.GATHER_SPACE_ID }}
-  GATHER_MAP_ID: ${{ secrets.GATHER_MAP_ID }}
-  UPTIME_ROBOT_API_KEY: ${{ secrets.UPTIME_ROBOT_API_KEY }}
+  GATHER_BOT_ID: ${{ secrets.GATHER_BOT_ID }}
+  GATHER_DOOR_BELL_ID: ${{ secrets.GATHER_DOOR_BELL_ID }}
+  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+  SLACK_APP_TOKEN: ${{ secrets.SLACK_APP_TOKEN }}
+  SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET }}
+  SLACK_PRESENCE_CHANNEL_ID: ${{ secrets.SLACK_PRESENCE_CHANNEL_ID }}
+  SLACK_CHAT_CHANNEL_ID: ${{ secrets.SLACK_CHAT_CHANNEL_ID }}
 
 jobs:
   deploy:
-      name: Deploy app
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - uses: superfly/flyctl-actions/setup-flyctl@master
-        - run: flyctl deploy --remote-only
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.17.6'
+          
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        
+      - name: Build
+        run: yarn build
+        
+      - name: Setup Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+        
+      - name: Deploy to Fly
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
