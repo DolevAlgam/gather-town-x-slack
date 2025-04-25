@@ -7,7 +7,7 @@
   "private": true,
   "types": "./src/index.d.ts",
   "engines": {
-    "node": "14.17.6"
+    "node": "18.x"
   },
   "scripts": {
     "build": "tsc",
